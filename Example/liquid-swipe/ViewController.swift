@@ -22,7 +22,7 @@ class ColoredController: UIViewController {
     }
 }
 
-class ViewController: LiquidSwipeContainerController, LiquidSwipeContainerDataSource {
+class ViewController: LiquidSwipeContainerController {
     
     var viewControllers: [UIViewController] = {
         let firstPageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "page1")
@@ -39,9 +39,14 @@ class ViewController: LiquidSwipeContainerController, LiquidSwipeContainerDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        datasource = self
-    }
 
+        datasource = self
+        delegate = self
+    }
+}
+
+extension ViewController: LiquidSwipeContainerDataSource {
+    
     func numberOfControllersInLiquidSwipeContainer(_ liquidSwipeContainer: LiquidSwipeContainerController) -> Int {
         return viewControllers.count
     }
@@ -49,6 +54,15 @@ class ViewController: LiquidSwipeContainerController, LiquidSwipeContainerDataSo
     func liquidSwipeContainer(_ liquidSwipeContainer: LiquidSwipeContainerController, viewControllerAtIndex index: Int) -> UIViewController {
         return viewControllers[index]
     }
-
 }
 
+extension ViewController: LiquidSwipeContainerDelegate {
+
+    func liquidSwipeContainer(_ liquidSwipeContainer: LiquidSwipeContainerController, willTransitionTo: UIViewController) {
+
+    }
+
+    func liquidSwipeContainer(_ liquidSwipeContainer: LiquidSwipeContainerController, didFinishTransitionTo: UIViewController, transitionCompleted: Bool) {
+
+    }
+}
