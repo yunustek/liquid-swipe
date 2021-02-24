@@ -27,7 +27,7 @@ open class LiquidSwipeContainerController: UIViewController {
         }
     }
     public var delegate: LiquidSwipeContainerDelegate?
-    public private(set) var currentPageIndex: Int = 0
+    public var currentPageIndex: Int = 0
     private var currentPage: UIView? {
         return currentViewController?.view
     }
@@ -381,20 +381,32 @@ open class LiquidSwipeContainerController: UIViewController {
         guard pagesCount > 0 else {
             return
         }
-        let firstVC = datasource.liquidSwipeContainer(self, viewControllerAtIndex: 0)
+        let firstVC = datasource.liquidSwipeContainer(self, viewControllerAtIndex: currentPageIndex)
         guard let firstPage = firstVC.view else {
             return
         }
         view.addSubview(firstPage)
         layoutPageView(firstPage)
 
-        if pagesCount > 1 {
+        if pagesCount > currentPageIndex + 1 {
             let maskLayer = WaveLayer(waveCenterY: initialWaveCenter, waveHorRadius: initialHorRadius, waveVertRadius: initialVertRadius, sideWidth: initialSideWidth)
             apply(mask: maskLayer, on: firstPage)
         }
         currentViewController = firstVC
         configureNextPage()
         view.bringSubviewToFront(btnNext)
+        if currentPageIndex > 0 {
+
+            let preVC = datasource.liquidSwipeContainer(self, viewControllerAtIndex: currentPageIndex - 1)
+            let maskLayer = WaveLayer(waveCenterY: initialWaveCenter,
+                                      waveHorRadius: 0,
+                                      waveVertRadius: initialVertRadius,
+                                      sideWidth: 0)
+            apply(mask: maskLayer, on: preVC.view)
+
+            configurePreviousPage()
+            leftEdgeGesture.isEnabled = true
+        }
     }
     
     private func showNextPage() {
