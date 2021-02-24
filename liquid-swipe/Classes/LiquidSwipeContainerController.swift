@@ -70,9 +70,11 @@ open class LiquidSwipeContainerController: UIViewController {
     
     public var shouldFinishRightProgress: CGFloat = 0.15
     public var shouldFinishLeftProgress: CGFloat = 0.40
+    public var enablePanGesture: Bool = false
     private var rightEdgeGesture = UIScreenEdgePanGestureRecognizer()
     private var leftEdgeGesture = UIScreenEdgePanGestureRecognizer()
-    
+    private var panGesture = UIPanGestureRecognizer()
+
     private var csBtnNextLeading: NSLayoutConstraint?
     private var csBtnNextCenterY: NSLayoutConstraint?
     
@@ -106,6 +108,10 @@ open class LiquidSwipeContainerController: UIViewController {
         leftEdgeGesture.edges = .left
         view.addGestureRecognizer(leftEdgeGesture)
         leftEdgeGesture.isEnabled = false
+
+        panGesture.addTarget(self, action: #selector(pan))
+        panGesture.isEnabled = enablePanGesture
+        view.addGestureRecognizer(panGesture)
     }
     
     private func animate(view: UIView, forProgress progress: CGFloat, waveCenterY: CGFloat? = nil) {
@@ -355,7 +361,29 @@ open class LiquidSwipeContainerController: UIViewController {
             currentPage?.pop_add(currentViewAnimation, forKey: "animation")
         }
     }
-    
+
+    @objc private func pan(_ sender: UIPanGestureRecognizer) {
+
+        guard let isLeft = panIsLeft(sender, theViewYouArePassing: view) else { return }
+
+        if isLeft {
+            rightEdgePan(sender)
+        } else {
+            leftEdgePan(sender)
+        }
+    }
+
+    private func panIsLeft(_ gesture: UIPanGestureRecognizer, theViewYouArePassing: UIView) -> Bool? {
+        let velocity : CGPoint = gesture.velocity(in: theViewYouArePassing)
+
+        if abs(velocity.x) > abs(velocity.y) && velocity.x > 0 {
+            return false
+        } else if abs(velocity.x) > abs(velocity.y) && velocity.x < 0 {
+            return true
+        }
+        return nil
+    }
+
     private func layoutPageView(_ page: UIView) {
         page.translatesAutoresizingMaskIntoConstraints = false
         page.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
