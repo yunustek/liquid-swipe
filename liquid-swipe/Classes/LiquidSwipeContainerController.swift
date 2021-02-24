@@ -34,11 +34,11 @@ open class LiquidSwipeContainerController: UIViewController {
     private var currentViewController: UIViewController?
     private var nextViewController: UIViewController?
     private var previousViewController: UIViewController?
+    public var btnNextImage: UIImage? = UIImage(named: "btnNext.png", in: Bundle.resourseBundle, compatibleWith: nil)
     public var btnNext: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
-        button.setImage(UIImage(named: "btnNext.png", in: Bundle.resourseBundle, compatibleWith: nil), for: .normal)
         return button
     }()
     
@@ -88,6 +88,7 @@ open class LiquidSwipeContainerController: UIViewController {
         csBtnNextCenterY = btnNext.centerYAnchor.constraint(equalTo: view.topAnchor, constant: initialWaveCenter)
         csBtnNextCenterY?.isActive = true
         btnNext.addTarget(self, action: #selector(btnTapped(_:)), for: .touchUpInside)
+        btnNext.setImage(btnNextImage, for: .normal)
     }
     
     private func configureGestures() {
@@ -394,7 +395,6 @@ open class LiquidSwipeContainerController: UIViewController {
         }
         currentViewController = firstVC
         configureNextPage()
-        view.bringSubviewToFront(btnNext)
         if currentPageIndex > 0 {
 
             let preVC = datasource.liquidSwipeContainer(self, viewControllerAtIndex: currentPageIndex - 1)
@@ -406,6 +406,9 @@ open class LiquidSwipeContainerController: UIViewController {
 
             configurePreviousPage()
             leftEdgeGesture.isEnabled = true
+        }
+        if btnNextImage != nil {
+            view.bringSubviewToFront(btnNext)
         }
     }
     
