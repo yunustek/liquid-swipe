@@ -63,6 +63,7 @@ open class LiquidSwipeContainerController: UIViewController {
     private var initialWaveCenter: CGFloat {
         return view.bounds.height * initialWaveCenterPerc
     }
+    public var maxRadiusChangePerc: CGFloat = 0.45
     private var animationStartTime: CFTimeInterval?
     private var animating: Bool = false
     private var duration: CFTimeInterval = 0.8
@@ -167,7 +168,7 @@ open class LiquidSwipeContainerController: UIViewController {
                 let distance = min(CGFloat(time) * speed, abs(mask.waveCenterY - gesture.location(in: view).y))
                 let centerY = mask.waveCenterY + distance * direction
                 let change = -gesture.translation(in: view).x
-                let maxChange: CGFloat = self.view.bounds.width * (1.0/0.45)
+                let maxChange: CGFloat = self.view.bounds.width * (1.0/self.maxRadiusChangePerc)
                 if !(self.shouldFinish || self.shouldCancel) {
                     let progress: CGFloat = min(1.0, max(0, change / maxChange))
                     self.animate(view: view, forProgress: progress, waveCenterY: centerY)
