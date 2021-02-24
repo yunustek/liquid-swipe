@@ -42,12 +42,13 @@ open class LiquidSwipeContainerController: UIViewController {
         return button
     }()
     
-    private var initialHorRadius: CGFloat = 48.0
+    public var initialHorRadius: CGFloat = 48.0
+    public var maxHorRadiusPerc: CGFloat = 0.8
     private var maxHorRadius: CGFloat {
-        return view.bounds.width * 0.8
+        return view.bounds.width * maxHorRadiusPerc
     }
-    
-    private var initialVertRadius: CGFloat = 82.0
+
+    public var initialVertRadius: CGFloat = 82.0
     private var maxVertRadius: CGFloat {
         return view.bounds.height * 0.9
     }
