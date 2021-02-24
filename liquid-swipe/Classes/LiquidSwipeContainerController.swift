@@ -69,6 +69,7 @@ open class LiquidSwipeContainerController: UIViewController {
     private var duration: CFTimeInterval = 0.8
     
     public var shouldFinishRightProgress: CGFloat = 0.15
+    public var shouldFinishLeftProgress: CGFloat = 0.40
     private var rightEdgeGesture = UIScreenEdgePanGestureRecognizer()
     private var leftEdgeGesture = UIScreenEdgePanGestureRecognizer()
     
@@ -260,7 +261,7 @@ open class LiquidSwipeContainerController: UIViewController {
                     case .began, .changed:
                         return true
                     default:
-                        if progress <= 0.6 {
+                        if progress <= (1 - self.shouldFinishLeftProgress) {
                             self.shouldFinish = true
                             self.shouldCancel = false
                             self.animationProgress = progress
