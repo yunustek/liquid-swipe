@@ -52,14 +52,16 @@ open class LiquidSwipeContainerController: UIViewController {
     private var maxVertRadius: CGFloat {
         return view.bounds.height * 0.9
     }
+    public var initialSideWidthValue: CGFloat = 15.0
     private var initialSideWidth: CGFloat {
         if #available(iOS 11.0, *) {
-            return 15.0 + view.safeAreaInsets.right
+            return initialSideWidthValue + view.safeAreaInsets.right
         }
-        return 15.0
+        return initialSideWidthValue
     }
-    private var initialWaveCenter: CGFloat  {
-        return view.bounds.height * 0.7167487685
+    public var initialWaveCenterPerc: CGFloat = 0.7167487685
+    private var initialWaveCenter: CGFloat {
+        return view.bounds.height * initialWaveCenterPerc
     }
     private var animationStartTime: CFTimeInterval?
     private var animating: Bool = false
