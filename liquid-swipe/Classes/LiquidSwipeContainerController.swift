@@ -556,6 +556,14 @@ open class LiquidSwipeContainerController: UIViewController {
         if let mask = page.layer.mask as? WaveLayer {
             mask.frame = view.bounds
             mask.updatePath()
+        } else {
+            let maskLayer = WaveLayer(waveCenterY: initialWaveCenter,
+                                      waveHorRadius: 0,
+                                      waveVertRadius: initialVertRadius,
+                                      sideWidth: 0)
+            if let currentPage = currentPage {
+                apply(mask: maskLayer, on: currentPage)
+            }
         }
         if let currentPage = currentPage {
             view.insertSubview(page, aboveSubview: currentPage)
