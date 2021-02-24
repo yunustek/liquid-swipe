@@ -47,7 +47,7 @@ open class LiquidSwipeContainerController: UIViewController {
     private var maxHorRadius: CGFloat {
         return view.bounds.width * maxHorRadiusPerc
     }
-
+    
     public var initialVertRadius: CGFloat = 82.0
     private var maxVertRadius: CGFloat {
         return view.bounds.height * 0.9
@@ -74,7 +74,7 @@ open class LiquidSwipeContainerController: UIViewController {
     private var rightEdgeGesture = UIScreenEdgePanGestureRecognizer()
     private var leftEdgeGesture = UIScreenEdgePanGestureRecognizer()
     private var panGesture = UIPanGestureRecognizer()
-
+    
     private var csBtnNextLeading: NSLayoutConstraint?
     private var csBtnNextCenterY: NSLayoutConstraint?
     
@@ -108,7 +108,7 @@ open class LiquidSwipeContainerController: UIViewController {
         leftEdgeGesture.edges = .left
         view.addGestureRecognizer(leftEdgeGesture)
         leftEdgeGesture.isEnabled = false
-
+        
         panGesture.addTarget(self, action: #selector(pan))
         panGesture.isEnabled = enablePanGesture
         view.addGestureRecognizer(panGesture)
@@ -166,9 +166,9 @@ open class LiquidSwipeContainerController: UIViewController {
                       let view = target as? UIView,
                       let mask = view.layer.mask as? WaveLayer,
                       let time = animation?.elapsedTime else {
-                        if let viewController = self.nextViewController {
-                            self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: viewController, transitionCompleted: false)
-                        }
+                    if let viewController = self.nextViewController {
+                        self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: viewController, transitionCompleted: false)
+                    }
                     return false
                 }
                 let speed: CGFloat = 2000
@@ -220,8 +220,8 @@ open class LiquidSwipeContainerController: UIViewController {
                     self.showNextPage()
                 }
                 if self.shouldCancel,
-                    let viewController = self.nextViewController {
-                        self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: viewController, transitionCompleted: false)
+                   let viewController = self.nextViewController {
+                    self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: viewController, transitionCompleted: false)
                 }
             }
             if let mask = nextViewController?.view?.layer.mask as? WaveLayer {
@@ -246,13 +246,13 @@ open class LiquidSwipeContainerController: UIViewController {
             }
             let previousViewAnimation = POPCustomAnimation {[weak sender] (target, animation) -> Bool in
                 guard let gesture = sender,
-                    let view = target as? UIView,
-                    let mask = view.layer.mask as? WaveLayer,
-                    let time = animation?.elapsedTime else {
-                        if let nextViewController = self.nextViewController {
-                            self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: nextViewController, transitionCompleted: false)
-                        }
-                        return false
+                      let view = target as? UIView,
+                      let mask = view.layer.mask as? WaveLayer,
+                      let time = animation?.elapsedTime else {
+                    if let nextViewController = self.nextViewController {
+                        self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: nextViewController, transitionCompleted: false)
+                    }
+                    return false
                 }
                 let speed: CGFloat = 2000
                 let direction: CGFloat = (gesture.location(in: view).y - mask.waveCenterY).sign == .plus ? 1 : -1
@@ -303,7 +303,7 @@ open class LiquidSwipeContainerController: UIViewController {
                     self.showPreviousPage()
                 }
                 if self.shouldCancel,
-                    let viewController = self.previousViewController {
+                   let viewController = self.previousViewController {
                     viewController.view.isHidden = true
                     self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: viewController, transitionCompleted: false)
                 }
@@ -320,10 +320,10 @@ open class LiquidSwipeContainerController: UIViewController {
             var cancelTime: CFTimeInterval?
             let currentViewAnimation = POPCustomAnimation {[weak sender] (target, animation) -> Bool in
                 guard let gesture = sender,
-                    let view = target as? UIView,
-                    let mask = view.layer.mask as? WaveLayer,
-                    let time = animation?.currentTime else {
-                        return false
+                      let view = target as? UIView,
+                      let mask = view.layer.mask as? WaveLayer,
+                      let time = animation?.currentTime else {
+                    return false
                 }
                 let duration: CGFloat = 0.3
                 if !self.shouldCancel {
@@ -361,21 +361,21 @@ open class LiquidSwipeContainerController: UIViewController {
             currentPage?.pop_add(currentViewAnimation, forKey: "animation")
         }
     }
-
+    
     @objc private func pan(_ sender: UIPanGestureRecognizer) {
-
+        
         guard let isLeft = panIsLeft(sender, theViewYouArePassing: view) else { return }
-
+        
         if isLeft {
             rightEdgePan(sender)
         } else {
             leftEdgePan(sender)
         }
     }
-
+    
     private func panIsLeft(_ gesture: UIPanGestureRecognizer, theViewYouArePassing: UIView) -> Bool? {
         let velocity : CGPoint = gesture.velocity(in: theViewYouArePassing)
-
+        
         if abs(velocity.x) > abs(velocity.y) && velocity.x > 0 {
             return false
         } else if abs(velocity.x) > abs(velocity.y) && velocity.x < 0 {
@@ -383,7 +383,7 @@ open class LiquidSwipeContainerController: UIViewController {
         }
         return nil
     }
-
+    
     private func layoutPageView(_ page: UIView) {
         page.translatesAutoresizingMaskIntoConstraints = false
         page.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -394,7 +394,7 @@ open class LiquidSwipeContainerController: UIViewController {
     
     private func clearSubviews() {
         if previousViewController?.view.superview == view {
-           previousViewController?.view.removeFromSuperview()
+            previousViewController?.view.removeFromSuperview()
         }
         previousViewController = nil
         if currentViewController?.view.superview == view {
@@ -422,7 +422,7 @@ open class LiquidSwipeContainerController: UIViewController {
         }
         view.addSubview(firstPage)
         layoutPageView(firstPage)
-
+        
         if pagesCount > currentPageIndex + 1 {
             let maskLayer = WaveLayer(waveCenterY: initialWaveCenter, waveHorRadius: initialHorRadius, waveVertRadius: initialVertRadius, sideWidth: initialSideWidth)
             apply(mask: maskLayer, on: firstPage)
@@ -430,14 +430,14 @@ open class LiquidSwipeContainerController: UIViewController {
         currentViewController = firstVC
         configureNextPage()
         if currentPageIndex > 0 {
-
+            
             let preVC = datasource.liquidSwipeContainer(self, viewControllerAtIndex: currentPageIndex - 1)
             let maskLayer = WaveLayer(waveCenterY: initialWaveCenter,
                                       waveHorRadius: 0,
                                       waveVertRadius: initialVertRadius,
                                       sideWidth: 0)
             apply(mask: maskLayer, on: preVC.view)
-
+            
             configurePreviousPage()
             leftEdgeGesture.isEnabled = true
         }
@@ -470,15 +470,15 @@ open class LiquidSwipeContainerController: UIViewController {
             }
             return
         }
-
+        
         let startTime = CACurrentMediaTime()
         let duration: CFTimeInterval = 0.3
         csBtnNextCenterY?.constant = initialWaveCenter
         let animation = POPCustomAnimation {(target, animation) -> Bool in
             guard let view = target as? UIView,
-                let mask = view.layer.mask as? WaveLayer,
-                let time = animation?.currentTime else {
-                    return false
+                  let mask = view.layer.mask as? WaveLayer,
+                  let time = animation?.currentTime else {
+                return false
             }
             let cTime = time - startTime
             let progress = CGFloat(cTime/duration)
@@ -524,9 +524,9 @@ open class LiquidSwipeContainerController: UIViewController {
         view.bringSubviewToFront(btnNext)
         let animation = POPCustomAnimation {(target, animation) -> Bool in
             guard let view = target as? UIView,
-                let mask = view.layer.mask as? WaveLayer,
-                let time = animation?.currentTime else {
-                    return false
+                  let mask = view.layer.mask as? WaveLayer,
+                  let time = animation?.currentTime else {
+                return false
             }
             let cTime = time - startTime
             let progress = CGFloat(cTime/duration)
@@ -624,8 +624,8 @@ open class LiquidSwipeContainerController: UIViewController {
         }
         let animation = POPCustomAnimation {(target, animation) -> Bool in
             guard let view = target as? UIView,
-                let time = animation?.currentTime else {
-                    return false
+                  let time = animation?.currentTime else {
+                return false
             }
             let cTime = time - (self.animationStartTime ?? CACurrentMediaTime())
             let progress = CGFloat(cTime/self.duration)
