@@ -47,7 +47,7 @@ open class LiquidSwipeContainerController: UIViewController {
     private var maxHorRadius: CGFloat {
         return view.bounds.width * maxHorRadiusPerc
     }
-    
+
     public var initialVertRadius: CGFloat = 82.0
     private var maxVertRadius: CGFloat {
         return view.bounds.height * 0.9
@@ -74,7 +74,7 @@ open class LiquidSwipeContainerController: UIViewController {
     private var rightEdgeGesture = UIScreenEdgePanGestureRecognizer()
     private var leftEdgeGesture = UIScreenEdgePanGestureRecognizer()
     private var panGesture = UIPanGestureRecognizer()
-    
+
     private var csBtnNextLeading: NSLayoutConstraint?
     private var csBtnNextCenterY: NSLayoutConstraint?
     
@@ -108,7 +108,7 @@ open class LiquidSwipeContainerController: UIViewController {
         leftEdgeGesture.edges = .left
         view.addGestureRecognizer(leftEdgeGesture)
         leftEdgeGesture.isEnabled = false
-        
+
         panGesture.addTarget(self, action: #selector(pan))
         panGesture.isEnabled = enablePanGesture
         view.addGestureRecognizer(panGesture)
@@ -361,21 +361,21 @@ open class LiquidSwipeContainerController: UIViewController {
             currentPage?.pop_add(currentViewAnimation, forKey: "animation")
         }
     }
-    
+
     @objc private func pan(_ sender: UIPanGestureRecognizer) {
-        
+
         guard let isLeft = panIsLeft(sender, theViewYouArePassing: view) else { return }
-        
+
         if isLeft {
             rightEdgePan(sender)
         } else {
             leftEdgePan(sender)
         }
     }
-    
+
     private func panIsLeft(_ gesture: UIPanGestureRecognizer, theViewYouArePassing: UIView) -> Bool? {
         let velocity : CGPoint = gesture.velocity(in: theViewYouArePassing)
-        
+
         if abs(velocity.x) > abs(velocity.y) && velocity.x > 0 {
             return false
         } else if abs(velocity.x) > abs(velocity.y) && velocity.x < 0 {
@@ -383,7 +383,7 @@ open class LiquidSwipeContainerController: UIViewController {
         }
         return nil
     }
-    
+
     private func layoutPageView(_ page: UIView) {
         page.translatesAutoresizingMaskIntoConstraints = false
         page.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -422,7 +422,7 @@ open class LiquidSwipeContainerController: UIViewController {
         }
         view.addSubview(firstPage)
         layoutPageView(firstPage)
-        
+
         if pagesCount > currentPageIndex + 1 {
             let maskLayer = WaveLayer(waveCenterY: initialWaveCenter, waveHorRadius: initialHorRadius, waveVertRadius: initialVertRadius, sideWidth: initialSideWidth)
             apply(mask: maskLayer, on: firstPage)
@@ -430,14 +430,14 @@ open class LiquidSwipeContainerController: UIViewController {
         currentViewController = firstVC
         configureNextPage()
         if currentPageIndex > 0 {
-            
+
             let preVC = datasource.liquidSwipeContainer(self, viewControllerAtIndex: currentPageIndex - 1)
             let maskLayer = WaveLayer(waveCenterY: initialWaveCenter,
                                       waveHorRadius: 0,
                                       waveVertRadius: initialVertRadius,
                                       sideWidth: 0)
             apply(mask: maskLayer, on: preVC.view)
-            
+
             configurePreviousPage()
             leftEdgeGesture.isEnabled = true
         }
@@ -470,7 +470,7 @@ open class LiquidSwipeContainerController: UIViewController {
             }
             return
         }
-        
+
         let startTime = CACurrentMediaTime()
         let duration: CFTimeInterval = 0.3
         csBtnNextCenterY?.constant = initialWaveCenter
