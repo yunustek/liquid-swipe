@@ -71,6 +71,7 @@
 		E86702FAE18FCC7D95A92AFCFE93C109 /* POPBasicAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 21E67F9E63FC1A8F60E649758E7BECD6 /* POPBasicAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E8F5D5CC23CEF662DC8B533E711D22BD /* pop-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBD67A7B10897F5C692260700A588EF /* pop-dummy.m */; };
 		F27D5A2FFC22B677B04E0D0EC0826A0B /* POPAnimator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94F0B8116E37A215596A08E38E47C55D /* POPAnimator.mm */; };
+		F2AE5A7925E939CD00DE84CD /* LiquidSwipeContainerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AE5A7825E939CD00DE84CD /* LiquidSwipeContainerManager.swift */; };
 		F73C3A5923368C7F7A7019BE219C8D0B /* POPPropertyAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B01EF08422270A59BDD17CE72C995B5 /* POPPropertyAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F78C0077F93FAC6271401987976FA42A /* LiquidSwipeContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7CB68788E835BE206E53EBA85A29D0 /* LiquidSwipeContainerController.swift */; };
 		F98E70B65FE38AFD78B58BB623C64662 /* POPDecayAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABBFE04AAF9F547BB2BDF647C3B467DF /* POPDecayAnimation.mm */; };
@@ -196,6 +197,7 @@
 		F152B413C65A5832F4535039903B5FAE /* Pods-liquid-swipe_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-liquid-swipe_Example-umbrella.h"; sourceTree = "<group>"; };
 		F17EAF9313F0F49EB55033A5A9ACE459 /* POPCGUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPCGUtils.h; path = pop/POPCGUtils.h; sourceTree = "<group>"; };
 		F277E491CE17CF8AFD3D108A933B1A58 /* POPAnimationExtras.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimationExtras.mm; path = pop/POPAnimationExtras.mm; sourceTree = "<group>"; };
+		F2AE5A7825E939CD00DE84CD /* LiquidSwipeContainerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidSwipeContainerManager.swift; sourceTree = "<group>"; };
 		F35BA244E47FEC43A368777DFEB2A6DD /* btnNext@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "btnNext@3x.png"; path = "liquid-swipe/Assets/btnNext@3x.png"; sourceTree = "<group>"; };
 		F5A5079CEB8F72A48B7F71806E682C25 /* POPGeometry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPGeometry.h; path = pop/POPGeometry.h; sourceTree = "<group>"; };
 		F725407E9E4768A958C8494154E2FCAE /* Pods-liquid-swipe_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-liquid-swipe_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				F35BA244E47FEC43A368777DFEB2A6DD /* btnNext@3x.png */,
 				1588DD6D48F601D62A582BA1CC784031 /* Bundle.swift */,
 				5C7CB68788E835BE206E53EBA85A29D0 /* LiquidSwipeContainerController.swift */,
+				F2AE5A7825E939CD00DE84CD /* LiquidSwipeContainerManager.swift */,
 				E1C352E101CE11896B49342CEA17DDA2 /* WaveLayer.swift */,
 				1EF5DC01E47C494E280FE04C3288B915 /* Pod */,
 				4C7406486DE47A98DF233E359AE46486 /* Support Files */,
@@ -697,6 +700,7 @@
 				B2332C0E8C7BFB955C3160487BE30F1E /* liquid-swipe-dummy.m in Sources */,
 				F78C0077F93FAC6271401987976FA42A /* LiquidSwipeContainerController.swift in Sources */,
 				B4A0C9159BBCD5C18A88117FE42F3536 /* WaveLayer.swift in Sources */,
+				F2AE5A7925E939CD00DE84CD /* LiquidSwipeContainerManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
